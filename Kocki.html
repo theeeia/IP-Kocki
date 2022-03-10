@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+            $("#first").css({'padding-left':'80px'})
+            $("#second").css({'padding-left':'80px'})
+        });
+        function roll() {
+           var br= $("#broj").val();
+           console.log(br)
+           // $("#broj").attr("value",br);
+
+            if(br == '' || isNaN(br)){
+                alert("Vnesete broj")
+            }else {
+                brojki();
+            }
+
+        }
+
+        function brojki() {
+            $("#first").css({'padding-left':'20px','padding-right':'20px' })
+            $("#second").css({'padding-left':'20px','padding-right':'20px' })
+            var f=Math.ceil(Math.random()*100)%6+1;
+            var a=Math.ceil(Math.random()*100)%6+1;
+            var time= Math.ceil(Math.random()*(3000-1000)+1000)
+           // console.log(time)
+            $({counter:a}).animate({counter: f},
+                {duration:time,
+                    easing: "swing",
+                step: function () {
+                    if(this.counter<=6) this.counter=Math.ceil(Math.random()*100)%6+1;
+                    $("#first").text(Math.ceil(this.counter))
+                },
+                 complete:function (){
+                     $("#first").text(Math.ceil(this.counter))
+                 }}
+            );
+
+            var a2=Math.ceil(Math.random()*100)%6+1;
+            var s=Math.ceil(Math.random()*100)%6+1;
+            $({counter:a2}).animate({counter: s},
+                {duration:time,
+                    easing: "swing",
+                    step: function () {
+                        if(this.counter<=6) this.counter=Math.ceil(Math.random()*100)%6+1;
+                        $("#second").text(Math.ceil(this.counter))
+
+                    },
+                    complete:function (){
+                        $("#second").text(Math.ceil(this.counter));
+                        check();
+                    }}
+            );
+        }
+        function check() {
+           var x= $("#first").text();
+            var y= $("#second").text();
+            var zbir=parseInt(x)+parseInt(y)
+            var br= parseInt( $("#broj").val());
+           // console.log(zbir ,br)
+
+           if(zbir==parseInt(br)){
+               $("#broj").css("background-color","green");
+           }else{
+               $("#broj").css("background-color","red");
+
+           }
+        }
+
+    </script>
+</head>
+<body>
+<div>
+    <input id="broj"> <button id="roll" onclick="roll()">Roll</button>
+</div>
+<br><br>
+
+<span id="first" style="border: 2px solid black; font-size: 80px;">
+
+</span>
+<span id="second" style="border: 2px solid black; font-size: 80px;margin-left: 5px;">
+
+</span>
+<br><br>
+
+
+</body>
+</html>
